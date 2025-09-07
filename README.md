@@ -4,3 +4,4 @@ Expense Tracer Website Application - TrackStack
 
 Features
   Transcation Manage: Add income or expenses by entering transaction information
+  to be continued...

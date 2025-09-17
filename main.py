@@ -13,5 +13,5 @@ file_path = "/Users/suhailkhaled/CPSC-362-Expense-Tracker/expenses.csv"
 
 df = pd.read_csv(file_path)
 
-sns.lineplot(data=df, x="Date", y="Amount", hue="Category")
+sns.lineplot(data=df, x="date", y="amount", hue="category")
 plt.show()

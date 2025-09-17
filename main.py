@@ -15,3 +15,12 @@ df = pd.read_csv(file_path)
 
 sns.lineplot(data=df, x="date", y="amount", hue="category")
 plt.show()
+
+
+
+sns.barplot(data=df, x="category", y="amount")
+
+
+# Add title
+plt.title('Amount Distribution by Category')
+plt.show()

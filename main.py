@@ -12,4 +12,4 @@ print("Setup Complete")
 file_path = "/Users/suhailkhaled/CPSC-362-Expense-Tracker/expenses.csv"
 
 df = pd.read_csv(file_path)
-print(df)
+print(df.head())

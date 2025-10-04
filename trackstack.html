@@ -10,19 +10,27 @@
     <body>
         <center>
         <h1>Welcome to TrackStack!</h1>
-        <div class="container">
-            <p style="color:red;">This TrackStack website will be able to track your daily expenses.TrackStack is a web app for tracking daily expenses.
+        <div class="tabcontainer">
+        <div class="tabhead">
+            <div id="LoginTab" class="active"> Login</div>
+            <div id="CreateTab">Create Account</div>
+        </div>
+            <p style="color:red;"> This TrackStack website will be able to track your daily expenses. TrackStack is a web app for tracking daily expenses.
         Users can add, edit, and delete entries. Visualizations help users understand where and when they spend most.
         Big Picture: Help users take control of their spending habits.
         We are developing this project using VS Code (Python, HTML, CSS, ASP.NET, JavaScript).
+        <div class="tabinfo">
+            <form id="loginForm" class="active">
+                <input type="text" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+
+        </div>
         <form action="trackstack.php" id="form1">
             <label for="fname">Add Entry: </label>
             <input type="text" id="fname" fname="fname"><br><br>
         </form>
-        <h2>Balance: </h2>
-        <p style="color:green;">This shows the history of recent expenses on your week.</p>
-        <h3>Add:</h3>
-        <p style="color:blue;"> You may be able to add the expenses.</p>
     </p>
         </div>
         </center>

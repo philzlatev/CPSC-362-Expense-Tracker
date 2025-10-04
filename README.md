@@ -9,6 +9,7 @@
 
 # Technologies Used
 * HTML
+* CSS
 * C#
 * Python
 * JavaScript

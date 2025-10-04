@@ -1,0 +1,20 @@
+
+* {
+  box-sizing: border-box;
+}
+
+
+body{
+    background-color:goldenrod;
+    text-align: center;
+    display: flex;
+    flex-direction: center;
+    margin: 0;
+    font-family: 'OsWald';
+
+}
+
+.container {
+    margin: 10px auto;
+    width: 300;
+}

@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS transactions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    amount REAL NOT NULL,
     category TEXT NOT NULL,
     merchant TEXT,
     user_id INTEGER NOT NULL,

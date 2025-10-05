@@ -17,7 +17,7 @@ sns.lineplot(data=df, x="date", y="amount", hue="category")
 plt.show()
 
 
-
+# Bar plot for category-wise expense distribution
 sns.barplot(data=df, x="category", y="amount")
 
 

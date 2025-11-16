@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TrackStack.Models;
 
@@ -10,6 +10,8 @@ namespace TrackStack.Data
             : base(options)
         {
         }
-        public DbSet<TrackStack.Models.Expenses> Expenses { get; set; } = default!;
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

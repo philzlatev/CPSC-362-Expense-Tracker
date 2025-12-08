@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/suhailkhaled/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj": {}
+    "/Users/suhailkhaled/CPSC_362/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj": {}
   },
   "projects": {
-    "/Users/suhailkhaled/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj": {
+    "/Users/suhailkhaled/CPSC_362/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/suhailkhaled/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj",
+        "projectUniqueName": "/Users/suhailkhaled/CPSC_362/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj",
         "projectName": "TrackStack",
-        "projectPath": "/Users/suhailkhaled/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj",
+        "projectPath": "/Users/suhailkhaled/CPSC_362/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj",
         "packagesPath": "/Users/suhailkhaled/.nuget/packages/",
-        "outputPath": "/Users/suhailkhaled/CPSC-362-Expense-Tracker/TrackStack/obj/",
+        "outputPath": "/Users/suhailkhaled/CPSC_362/CPSC-362-Expense-Tracker/TrackStack/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/suhailkhaled/.nuget/NuGet/NuGet.Config"

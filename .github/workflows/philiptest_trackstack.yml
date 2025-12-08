@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - Trackstack
+name: Build and deploy ASP.Net Core app to Azure Web App - TrackStack
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x'
+          dotnet-version: '10.x'
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -51,15 +51,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9344D7C6404A435988C9F19D4F62AE18 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4DDC7163A9DF4ADFBCCDB0543E1BDF8C }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_798F600356C34500A42801591A67419B }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B42367B16DD048909F0D5AB2D5C68D6B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9447EF60E93F48EFA89DA554308C0FF2 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_07777F86FF4847E4B1EAD153B91B6445 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'Trackstack'
+          app-name: 'TrackStack'
           slot-name: 'Production'
           package: .
           

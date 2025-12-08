@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrackStack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+848188822a6c0eafc0d9bf677de4d9bcbfaff2f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c7b75fc824f3183bd5554c4963e36f247e58047f")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrackStack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrackStack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

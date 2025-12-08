@@ -21,7 +21,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.x'
+          dotnet-version: '9.x'
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -51,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B42367B16DD048909F0D5AB2D5C68D6B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9447EF60E93F48EFA89DA554308C0FF2 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_07777F86FF4847E4B1EAD153B91B6445 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_45AC8D31E5D148C4884646893D1EB689 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B7F2BA6000494140B323F09F37F824A8 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5995D4EB3E444F27AF07F873E0C76D52 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp

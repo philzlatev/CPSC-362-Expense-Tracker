@@ -21,7 +21,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x'
+          dotnet-version: '10.x'
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -51,9 +51,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
+<<<<<<< HEAD
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_64A84FA7AAA24DCCB48BDCC25058A8E0 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3E70A1593626404EB30E31985A4DA33A }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_214506AA54D548F1AB9B3A3903BD302F }}
+=======
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B42367B16DD048909F0D5AB2D5C68D6B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9447EF60E93F48EFA89DA554308C0FF2 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_07777F86FF4847E4B1EAD153B91B6445 }}
+>>>>>>> parent of 15226ec (Merge branch 'PhilipTest' of https://github.com/philzlatev/CPSC-362-Expense-Tracker into PhilipTest)
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp

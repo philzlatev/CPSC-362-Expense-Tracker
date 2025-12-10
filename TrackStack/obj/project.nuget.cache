@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y+CBWhW1QJA=",
+  "dgSpecHash": "zW6rbj7sZ/w=",
   "success": true,
-  "projectFilePath": "/Users/suhailkhaled/CPSC_362/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj",
+  "projectFilePath": "/Users/suhailkhaled/CPSC_362/clone/CPSC-362-Expense-Tracker/TrackStack/TrackStack.csproj",
   "expectedPackageFiles": [
     "/Users/suhailkhaled/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/suhailkhaled/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",

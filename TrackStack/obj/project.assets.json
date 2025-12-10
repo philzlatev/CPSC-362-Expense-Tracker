@@ -8467,11 +8467,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vesco\\source\\repos\\CPSC-362-Expense-Tracker\\TrackStack\\TrackStack.csproj",
+      "projectUniqueName": "C:\\Users\\vesco\\Source\\Repos\\CPSC-362-Expense-Tracker\\TrackStack\\TrackStack.csproj",
       "projectName": "TrackStack",
-      "projectPath": "C:\\Users\\vesco\\source\\repos\\CPSC-362-Expense-Tracker\\TrackStack\\TrackStack.csproj",
+      "projectPath": "C:\\Users\\vesco\\Source\\Repos\\CPSC-362-Expense-Tracker\\TrackStack\\TrackStack.csproj",
       "packagesPath": "C:\\Users\\vesco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vesco\\source\\repos\\CPSC-362-Expense-Tracker\\TrackStack\\obj\\",
+      "outputPath": "C:\\Users\\vesco\\Source\\Repos\\CPSC-362-Expense-Tracker\\TrackStack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

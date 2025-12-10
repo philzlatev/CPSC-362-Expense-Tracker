@@ -12,6 +12,8 @@ namespace TrackStack.Data
         {
         }
 
+        // Optional: this DbSet<User> name collides with Identity's internal Users set.
+        // It’s fine for now, but consider renaming later to avoid CS0114 warnings.
         public DbSet<User> Users { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Expenses> Expenses { get; set; }
@@ -20,26 +22,23 @@ namespace TrackStack.Data
         {
             base.OnModelCreating(builder);
 
-            // Make Identity columns SQLite-compatible
-            builder.Entity<IdentityUser>(b =>
-            {
-                b.Property(u => u.Id).HasColumnType("TEXT");
-            });
-
+            // SQLite compatibility for Identity
+            builder.Entity<IdentityUser>(b => { b.Property(u => u.Id).HasColumnType("TEXT"); });
             builder.Entity<IdentityRole>(b =>
             {
                 b.Property(r => r.Id).HasColumnType("TEXT");
                 b.Property(r => r.ConcurrencyStamp).HasColumnType("TEXT");
             });
+            builder.Entity<IdentityUserLogin<string>>(b => { b.Property(l => l.ProviderKey).HasColumnType("TEXT"); });
+            builder.Entity<IdentityUserToken<string>>(b => { b.Property(t => t.Value).HasColumnType("TEXT"); });
 
-            builder.Entity<IdentityUserLogin<string>>(b =>
+            // Explicitly map Expenses -> IdentityUser via UserId (string)
+            builder.Entity<Expenses>(b =>
             {
-                b.Property(l => l.ProviderKey).HasColumnType("TEXT");
-            });
-
-            builder.Entity<IdentityUserToken<string>>(b =>
-            {
-                b.Property(t => t.Value).HasColumnType("TEXT");
+                b.HasOne<IdentityUser>(/* navigation: */ e => e.User)
+                 .WithMany()
+                 .HasForeignKey(e => e.UserId)
+                 .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

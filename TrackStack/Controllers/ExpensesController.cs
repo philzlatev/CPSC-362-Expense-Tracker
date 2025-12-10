@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,29 +15,53 @@ namespace TrackStack.Controllers
     public class ExpensesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+            
         public ExpensesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: Expenses
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Expenses.ToListAsync());
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
+            return View(await _context.Expenses
+                .Where(e => e.UserEmail == userEmail)
+                .ToListAsync());
         }
+
         // GET: Expenses/ShowSearchForm
-        public async Task<IActionResult> ShowSearchForm()
+        [Authorize]
+        public IActionResult ShowSearchForm()
         {
             return View();
         }
-        //GET: Expenses/ShowSearchResults
+
+        // GET: Expenses/ShowSearchResults
+        [Authorize]
         public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
         {
-            return View("Index",await _context.Expenses.Where(j => j.Description.Contains(SearchPhrase)).ToListAsync());
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
+            return View("Index", await _context.Expenses
+                .Where(e => e.UserEmail == userEmail && e.Description.Contains(SearchPhrase))
+                .ToListAsync());
         }
 
         // GET: Expenses/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,8 +69,11 @@ namespace TrackStack.Controllers
                 return NotFound();
             }
 
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
             var expenses = await _context.Expenses
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id && m.UserEmail == userEmail);
+            
             if (expenses == null)
             {
                 return NotFound();
@@ -62,14 +90,21 @@ namespace TrackStack.Controllers
         }
 
         // POST: Expenses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("ID,Amount,Type,Description")] Expenses expenses)
         {
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
             if (ModelState.IsValid)
             {
+                expenses.UserEmail = userEmail;
                 _context.Add(expenses);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -78,6 +113,7 @@ namespace TrackStack.Controllers
         }
 
         // GET: Expenses/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,22 +121,39 @@ namespace TrackStack.Controllers
                 return NotFound();
             }
 
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
             var expenses = await _context.Expenses.FindAsync(id);
-            if (expenses == null)
+            
+            if (expenses == null || expenses.UserEmail != userEmail)
             {
                 return NotFound();
             }
+            
             return View(expenses);
         }
 
         // POST: Expenses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Amount,Type,Description")] Expenses expenses)
         {
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
+            if (string.IsNullOrEmpty(userEmail))
+            {
+                return Unauthorized();
+            }
+
             if (id != expenses.ID)
+            {
+                return NotFound();
+            }
+
+            var existingExpense = await _context.Expenses.FindAsync(id);
+            
+            if (existingExpense == null || existingExpense.UserEmail != userEmail)
             {
                 return NotFound();
             }
@@ -109,12 +162,16 @@ namespace TrackStack.Controllers
             {
                 try
                 {
-                    _context.Update(expenses);
+                    existingExpense.Amount = expenses.Amount;
+                    existingExpense.Type = expenses.Type;
+                    existingExpense.Description = expenses.Description;
+                    
+                    _context.Update(existingExpense);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExpensesExists(expenses.ID))
+                    if (!ExpensesExists(id))
                     {
                         return NotFound();
                     }
@@ -129,6 +186,7 @@ namespace TrackStack.Controllers
         }
 
         // GET: Expenses/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,8 +194,11 @@ namespace TrackStack.Controllers
                 return NotFound();
             }
 
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
             var expenses = await _context.Expenses
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id && m.UserEmail == userEmail);
+            
             if (expenses == null)
             {
                 return NotFound();
@@ -149,10 +210,14 @@ namespace TrackStack.Controllers
         // POST: Expenses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
             var expenses = await _context.Expenses.FindAsync(id);
-            if (expenses != null)
+            
+            if (expenses != null && expenses.UserEmail == userEmail)
             {
                 _context.Expenses.Remove(expenses);
             }

@@ -1,0 +1,44 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2025-12-08T06:41:34.3664517Z"
+    },
+    "mssql3": {
+      "restored": true,
+      "restoreTime": "2025-12-08T06:48:33.8007633Z"
+    }
+  },
+  "parameters": {
+    "mssql2.serviceConnectorResourceGroupName": {
+      "Name": "mssql2.serviceConnectorResourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "TrackStack"
+    },
+    "mssql3.subscriptionId": {
+      "Name": "mssql3.subscriptionId",
+      "Type": "subscription",
+      "Value": "00b6c6a0-02b4-4ddf-a9d3-78082faa6b46"
+    },
+    "mssql2.resourceGroupName": {
+      "Name": "mssql2.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "TrackStack"
+    },
+    "mssql3.serviceConnectorResourceGroupName": {
+      "Name": "mssql3.serviceConnectorResourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "TrackStack"
+    },
+    "mssql2.subscriptionId": {
+      "Name": "mssql2.subscriptionId",
+      "Type": "subscription",
+      "Value": "00b6c6a0-02b4-4ddf-a9d3-78082faa6b46"
+    },
+    "mssql3.resourceGroupName": {
+      "Name": "mssql3.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "TrackStack"
+    }
+  }
+}

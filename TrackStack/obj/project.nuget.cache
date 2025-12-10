@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xkco93pcto0=",
+  "dgSpecHash": "hloXCYZrA1M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\vesco\\source\\repos\\CPSC-362-Expense-Tracker\\TrackStack\\TrackStack.csproj",
+  "projectFilePath": "C:\\Users\\vesco\\Source\\Repos\\CPSC-362-Expense-Tracker\\TrackStack\\TrackStack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vesco\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\vesco\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

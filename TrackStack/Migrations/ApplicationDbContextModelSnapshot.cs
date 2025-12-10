@@ -229,6 +229,10 @@ namespace TrackStack.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.ToTable("Expenses");

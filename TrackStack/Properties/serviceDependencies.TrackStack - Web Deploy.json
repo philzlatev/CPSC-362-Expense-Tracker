@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/TrackStack/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsDatabaseConnection_1716B4FB33",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/trackstackdbserver/databases/TrackStack_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DatabaseConnection"
+    },
+    "mssql3": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/TrackStack/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsDatabaseConnection1_42F732D134",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/trackstackdbserver/databases/TrackStack_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DatabaseConnection1"
+    }
+  }
+}

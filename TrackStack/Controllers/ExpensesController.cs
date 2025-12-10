@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TrackStack.Data;
 using TrackStack.Models;
 
 namespace TrackStack.Controllers
 {
+    [Authorize]
     public class ExpensesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,56 +19,58 @@ namespace TrackStack.Controllers
             _context = context;
         }
 
-        // GET: Expenses
+        private string? CurrentUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Expenses.ToListAsync());
-        }
-        // GET: Expenses/ShowSearchForm
-        public async Task<IActionResult> ShowSearchForm()
-        {
-            return View();
-        }
-        //GET: Expenses/ShowSearchResults
-        public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
-        {
-            return View("Index",await _context.Expenses.Where(j => j.Description.Contains(SearchPhrase)).ToListAsync());
-        }
-
-        // GET: Expenses/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var userId = CurrentUserId();
+            if (userId == null) return Challenge();
 
             var expenses = await _context.Expenses
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (expenses == null)
-            {
-                return NotFound();
-            }
+                .Where(e => e.UserId == userId)
+                .ToListAsync();
 
             return View(expenses);
         }
 
-        // GET: Expenses/Create
-        [Authorize]
-        public IActionResult Create()
+        public IActionResult ShowSearchForm() => View();
+
+        public async Task<IActionResult> ShowSearchResults(string SearchPhrase)
         {
-            return View();
+            var userId = CurrentUserId();
+            if (userId == null) return Challenge();
+
+            var results = await _context.Expenses
+                .Where(e => e.UserId == userId && e.Description.Contains(SearchPhrase))
+                .ToListAsync();
+
+            return View("Index", results);
         }
 
-        // POST: Expenses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        public async Task<IActionResult> Details(int? id)
+        {
+            var userId = CurrentUserId();
+            if (id == null || userId == null) return NotFound();
+
+            var expenses = await _context.Expenses
+                .FirstOrDefaultAsync(m => m.ID == id && m.UserId == userId);
+            if (expenses == null) return NotFound();
+
+            return View(expenses);
+        }
+
+        public IActionResult Create() => View();
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Amount,Type,Description")] Expenses expenses)
+        public async Task<IActionResult> Create([Bind("Amount,Type,Description")] Expenses expenses)
         {
+            var userId = CurrentUserId();
+            if (userId == null) return Challenge();
+
             if (ModelState.IsValid)
             {
+                expenses.UserId = userId;
                 _context.Add(expenses);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -77,93 +78,76 @@ namespace TrackStack.Controllers
             return View(expenses);
         }
 
-        // GET: Expenses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var userId = CurrentUserId();
+            if (id == null || userId == null) return NotFound();
 
-            var expenses = await _context.Expenses.FindAsync(id);
-            if (expenses == null)
-            {
-                return NotFound();
-            }
+            var expenses = await _context.Expenses
+                .FirstOrDefaultAsync(e => e.ID == id && e.UserId == userId);
+            if (expenses == null) return NotFound();
+
             return View(expenses);
         }
 
-        // POST: Expenses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Amount,Type,Description")] Expenses expenses)
         {
-            if (id != expenses.ID)
-            {
-                return NotFound();
-            }
+            var userId = CurrentUserId();
+            if (userId == null) return Challenge();
+            if (id != expenses.ID) return NotFound();
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(expenses);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ExpensesExists(expenses.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var existing = await _context.Expenses
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(e => e.ID == id && e.UserId == userId);
+                if (existing == null) return NotFound();
+
+                expenses.UserId = userId;
+                _context.Update(expenses);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(expenses);
         }
 
-        // GET: Expenses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var userId = CurrentUserId();
+            if (id == null || userId == null) return NotFound();
 
             var expenses = await _context.Expenses
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (expenses == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(m => m.ID == id && m.UserId == userId);
+            if (expenses == null) return NotFound();
 
             return View(expenses);
         }
 
-        // POST: Expenses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var expenses = await _context.Expenses.FindAsync(id);
+            var userId = CurrentUserId();
+            if (userId == null) return Challenge();
+
+            var expenses = await _context.Expenses
+                .FirstOrDefaultAsync(e => e.ID == id && e.UserId == userId);
+
             if (expenses != null)
             {
                 _context.Expenses.Remove(expenses);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExpensesExists(int id)
         {
-            return _context.Expenses.Any(e => e.ID == id);
+            var userId = CurrentUserId();
+            return userId != null && _context.Expenses.Any(e => e.ID == id && e.UserId == userId);
         }
     }
 }
